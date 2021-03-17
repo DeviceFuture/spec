@@ -34,7 +34,7 @@ The delimiter for multiple items within spec property values is a semicolon foll
 This document serves as the founding proposal for DeviceFuture. The products described herein may be expanded or futher adapted in future spec documents. However, this spec simply provides an overview of the DeviceFuture project.
 
 ## Details
-DeviceFuture is a community who plans to build open-source software and hardware to address the relevant issues of technology with regards to environmental sustainability. We hope to specifically address many issues with web technologies at this time, as will be described herein.
+DeviceFuture is a community who plans to build open-source software and hardware to address the relevant issues of technology with regards to environmental sustainability. We hope to specifically address many issues with web technologies at this time, as will be described herein. Below is a list of products that we will build under the DeviceFuture project.
 
 ### ThunderNet
 Our main project will be ThunderNet, a decentralised network of independently-operated **nodes** which can be connected to from consumer devices (known as **endpoints**) used by **visitors**. A **node** is defined as any internet-connected device which is capable of acting as a WAN-wide web server. A **visitor** is defined as an indiviudal who connects to nodes via their own **endpoint** device.
@@ -47,4 +47,18 @@ One of the most effective measures that we can take to strip the contents from r
 
 The rationale behind stripping the contents of resources is because a large proportion of content in a resource is never interacted with by a visitor, and therefore serves no use within that resource. By determining what parts of a resource is frequently unused, we can reduce the amount of data sent from a node to an endpoint, and therefore reduce the electricity consumption used transmitting that data.
 
-One of the fundamental missions of DeviceFuture is to ensure that everybody has access to an internet which is free of large-scale censoring that promotes the interests of one party only. Our combined use of a decentralised, multi-node network and symmetrical encryption can help to guarantee the privacy of a user who would otherwise be using potentially a restricted and monitored network.
+Compressing data before sending it to endpoints is also a powerful way to reduce the amount of data which is transmitted. We plan to use the LZMA encryption/decryption algorithm[F1] to reduce the size of resources by a ratio of around 2:1. The use of compression is also helpful when caching resources to reduce the amount of storage space in use.
+
+One of the fundamental missions of DeviceFuture is to ensure that everybody has access to an internet which is free of large-scale censoring that promotes the interests of one party only. Our combined use of a decentralised, multi-node network and symmetrical encryption can help to guarantee the privacy of a user who would otherwise be using potentially a restricted and monitored network. We plan to use AES encryption since it is built into all modern browsers and therefore does not need external library support (which in turn, reduces data transmission when installing our software on endpoint devices).
+
+We plan to write our node software such that it is lightweight and capable of running on inexpensive hardware such as the Raspberry Pi Zero. We hope to make energy efficiency a priority when writing our software so that it can be run on devices powered by clean, renewable energy such as solar/photovoltaic cells.
+
+### ThunderNet Browser
+To access information on ThunderNet, we will build a web browser called ThunderNet Browser, which will be available to install on endpoint devices. The browser will be a Progressive Web App (PWA), which makes it portable (available across multiple devices, such as desktop computers and mobile devices) as well as convenient to install. To maintain our aforementioned goals, the browser will be available in an extremely compact form, which saves space on the endpoint device and also ensures a fast installation on devices connected to a low-bandwidth network.
+
+The browser will function in the same as other internet browsers, in that a visitor enters a URL to a resource into the browser's address bar, and then the ThunderNet Browser will resolve that URL to a resource served through ThunderNet. Similarly, the ThunderNet Browser will cache recently-visited resources locally so that any future visits to a specific page can save on the number of requests made to nodes. A simple checksum system will be implemented so that cached resources do not go stale when the original resource is updated.
+
+The ThunderNet Browser will also decrypt and decompress resources so that the contents of those resources can be presented to the visitor.
+
+## Footnotes
+[F1] https://github.com/LZMA-JS/LZMA-JS
