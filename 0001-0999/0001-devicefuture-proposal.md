@@ -28,7 +28,7 @@ The delimiter for multiple items within spec property values is a semicolon foll
 | Submission date | 2021-03-17 |
 | Acceptance date | (N/A) |
 | Addresses issue(s) (if any) | (N/A) |
-| Review discussion | [Link to review discussion[G4]] |
+| Review discussion | [GH#1](https://github.com/DeviceFuture/spec/pull/1) |
 
 ## Synopsis
 This document serves as the founding proposal for DeviceFuture. The products described herein may be expanded or futher adapted in future spec documents. However, this spec simply provides an overview of the DeviceFuture project.
