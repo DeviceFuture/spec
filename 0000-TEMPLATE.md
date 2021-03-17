@@ -5,7 +5,7 @@ Ensure that you replace fields with square brackets (such as `[Spec Name]`) with
 
 Numbers in square brackets which are proceeded with a `G` (such as `[G1]`) refer to further guidance which is shown below.
 
-* [G1]: May not be applicable. Please write `N/A` if this is the case.
+* [G1]: May not be applicable. Please write `(N/A)` if this is the case.
 * [G2]: An area can either be `Meta` for discussion about the specifications in general, `Community` for information about community management/events, or `Other` if this spec does not fit into any specific area.
 * [G3]: Please link to issues as full URLs. For GitHub issue #123, write:
   ```
