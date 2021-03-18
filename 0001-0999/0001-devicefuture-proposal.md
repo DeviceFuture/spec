@@ -60,5 +60,10 @@ The browser will function in the same as other internet browsers, in that a visi
 
 The ThunderNet Browser will also decrypt and decompress resources so that the contents of those resources can be presented to the visitor.
 
+### ThunderNet QR
+ThunderNet Browser will include a feature to share resources with other endpoints through a completely offline method called ThunderNet QR. Since QR codes have become more and more versatile over the years, it is possible to store kilobytes of data within a single QR matrix. If one visitor wants another visitor to see an article, the first visitor can use the ThunderNet QR feature within ThunderNet Browser to generate a QR code which summarises the article. Then, the second visitor can scan the generated QR code to receive a copy of the resource.
+
+Resources may be split up into a series of QR codes if they are especially large. These QR codes can then be scanned one-at-a-time to receive the resource in parts.
+
 ## Footnotes
 [F1] https://github.com/LZMA-JS/LZMA-JS
