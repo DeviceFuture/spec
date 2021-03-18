@@ -65,5 +65,18 @@ ThunderNet Browser will include a feature to share resources with other endpoint
 
 Resources may be split up into a series of QR codes if they are especially large. These QR codes can then be scanned one-at-a-time to receive the resource in parts.
 
+We plan to use a JavaScript port[F2] of ZXing to scan QR codes and QRCode.js[F3] to generate QR codes. Both actions will be done from within ThunderNet Browser on endpoints.
+
+### ThunderSearch
+Since ThunderNet nodes perform parsing on various internet resources, we can use this data to create a search index for easy access to resources on the ThunderNet network. We will create a search engine called ThunderSearch which is accessible from the ThunderNet Browser. This engine will allow for simple keyword search, as well as more advanced search options to refine results by factors such as first retrieval date and size.
+
+To ensure that ThunderSearch is efficient, rendering of the search engine will happen within ThunderNet Browser within the endpoint. This means that a ThunderNet node only needs to send search results through a simple API. We plan to use NeDB[F4], a lightweight and fast database system, to store ThunderNet resources in addition to ThunderSearch results.
+
 ## Footnotes
 [F1] https://github.com/LZMA-JS/LZMA-JS
+
+[F2] https://github.com/nimiq/qr-scanner
+
+[F3] https://github.com/davidshimjs/qrcodejs
+
+[F4] https://github.com/louischatriot/nedb
