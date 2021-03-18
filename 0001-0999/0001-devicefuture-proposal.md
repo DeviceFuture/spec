@@ -1,32 +1,12 @@
-<!--
-Please delete this block comment before submitting your issue.
-
-Ensure that you replace fields with square brackets (such as `[Spec Name]`) with relevant information. You do not need to specify a specification ID since it is determined when it is accepted.
-
-Numbers in square brackets which are proceeded with a `G` (such as `[G1]`) refer to further guidance which is shown below.
-
-* [G1]: May not be applicable. Please write `(N/A)` if this is the case.
-* [G2]: An area can either be `Meta` for discussion about the specifications in general, `Community` for information about community management/events, or `Other` if this spec does not fit into any specific area.
-* [G3]: Please link to issues as full URLs. For GitHub issue #123, write:
-  ```
-  [GH#123](https://github.com/issues/123)
-  ```
-* [G4]: A reviewer will set this field for you. You can leave it as-is for now.
-
-Dates must be written in the form YYYY-MM-DD, where YYYY is the 4-digit year, MM is the 2-digit month, and DD is the 2-digit day of the month. When the month or day of the month is only 1 digit, then it must be preceeded with a `0`.
-
-The delimiter for multiple items within spec property values is a semicolon followed by a space (`; `).
--->
-
 # 0001: DeviceFuture Proposal
 | Property | Value |
 |----------|-------|
-| Status | Awaiting review |
+| Status | Accepted |
 | Product(s) (if any) or area | Meta |
 | Author(s) | james@devicefuture.org |
 | Reviewer(s) (if any) | (N/A) |
 | Submission date | 2021-03-17 |
-| Acceptance date | (N/A) |
+| Acceptance date | 2021-03-18 |
 | Addresses issue(s) (if any) | (N/A) |
 | Review discussion | [GH#1](https://github.com/DeviceFuture/spec/pull/1) |
 
