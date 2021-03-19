@@ -1,14 +1,14 @@
 # 0002: ThunderNet API
 | Property | Value |
 |----------|-------|
-| Status | Awaiting review |
+| Status | Accepted |
 | Product(s) (if any) or area | ThunderNet |
 | Author(s) | james@devicefuture.org |
 | Reviewer(s) (if any) | (N/A) |
 | Submission date | 2021-03-18 |
-| Acceptance date | [YYYY-MM-DD[G1]] |
+| Acceptance date | 2021-03-19 |
 | Addresses issue(s) (if any) | (N/A) |
-| Review discussion | [Link to review discussion[G4]] |
+| Review discussion | [GH#2](https://github.com/DeviceFuture/spec/pull/2) |
 
 ## Synopsis
 To ensure standardised communications between ThunderNet nodes[F1] and their endpoints[F1], this document defines a specification of the various API routes that will be set out to ensure maximum compatibility between various projects using the ThunderNet network.
