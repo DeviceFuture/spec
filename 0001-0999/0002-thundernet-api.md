@@ -11,7 +11,7 @@
 | Review discussion | [Link to review discussion[G4]] |
 
 ## Synopsis
-To ensure a standardised communication between ThunderNet nodes[F1] and their endpoints[F1], this document defines a specification of the various API routes will be set out to ensure maximum compatibility between various projects using the ThunderNet network.
+To ensure a standardised communication between ThunderNet nodes[F1] and their endpoints[F1], this document defines a specification of the various API routes that will be set out to ensure maximum compatibility between various projects using the ThunderNet network.
 
 ## Details
 To ensure privacy though encryption, endpoints must communicate with a node using an **endpoint profile** unique to both the node and the endpoint. An **endpoint profile** is an object which contains a referential **endpoint profile ID** and AES encryption/decryption key for secure and unique communications between a node and an endpoint. It is a JSON object containing an **endpoint profile ID** (key `id`), a JSON Web Key (JWK; key `jwk`) and an array of a node's WAN IP address(es) and/or domain name(s) which are commonly known as host addresses (key `hosts`). This is an array since multiple nodes could share the same endpoint profile collection.
@@ -23,16 +23,21 @@ For the purposes of secure and convenient encryption and decryption[F2], we will
 ### Routes
 Below is a list of node API routes which will be callable from endpoints to communicate with the ThunderNet network.
 
-#### GET `/version`
-Gets the current version number and API level of the target ThunderNet node. The response should be a JSON object containing the version string (without a `v` prefix; key `version`) and numeric API level value (key `apiLevel`), which starts at 0 and is incremented for every API change.
+#### GET `/about`
+Gets various up-to-date information the target ThunderNet node. The response should be a JSON object containing the version string (without a `v` prefix; key `version`) and numeric API level value (key `apiLevel`), which starts at 0 and is incremented for every API change.
 
-**Route parameters:** (None)
+So that endpoints can determine whether the node is in operation, the JSON response should include a status (key `status`), which can be any of these values:
+* **`"active"`:** Node is available for general use.
+* **`"tempoff"`:** Node is temporarily not in use and may need maintenance (to be carried out by node's operator) due to a reached limit. The `until` key containing a UNIX epoch millisecond timestamp will be provided as a date for when the node should be active again.
+* **`"error"`:** Node is experiencing high error rates (possibly due to issues with connecting to the internet). This may be cleared automatically.
+* **`"off"`:** Node is not in use at this time. This may be cleared at the discretion of the node's operator.
+* **`"decommissioned"`:** Node is no longer in use. Endpoints should not communicate with this node again.
 
 **Response type:** JSON
 
 **Restrictions:** (Unrestricted)
 
-**Example response:** GET `/version`
+**Example response:** GET `/about`: 200
 ```json
 {
     "version": "1.2.3",
@@ -45,13 +50,11 @@ Creates a new endpoint profile for usage with encryption on the node, and return
 
 > **Recommendation:** This route should only be called when the endpoint is on a trusted internet network. Otherwise, the AES encryption/decryption key could be captured by a malicious actor through a MITM attack. Under normal circumstances, the AES encryption/decryption key should only be held by the node and the endpoint to ensure a private connection.
 
-**Route parameters:** (None)
-
 **Response type:** JSON of endpoint profile
 
 **Restrictions:** (Unrestricted)
 
-**Example response:** GET `/register`
+**Example response:** GET `/register`: 200
 ```json
 {
     "id": "ZC4HNjxdHxoHoabV",
@@ -66,6 +69,26 @@ Creates a new endpoint profile for usage with encryption on the node, and return
 }
 ```
 
+#### GET `/access`
+Retrieves a rendered resource based on an internet resource located at a given URL (URL query parameter `url`). The internet resource may be modified (such as through compression or content stripping) before it is sent. The resource may also have been cached by the node, unless the `cache` URL query parameter is explicitly set to `false`.
+
+The response given is compressed (though the LZMA encryption/decryption algorithm[F4]) and then encrypted using the chosen endpoint profile configuration. The endpoint should decrypt and then decompress the response in that order to interpret the resource.
+
+The retrieved resource may then be reused for caching and indexing purposes.
+
+Any erroneous HTTP status codes sent from the originating resource server should be returned to the endpoint as a 502 status, and `/access` should return the contents as normal. The endpoint can choose how it should render the contents depending on the final resource's MIME type. If the originating resource server cannot be found, then a 504 status should be returned instead.
+
+**Response type:** Raw encoded (binary) data with MIME type dependent on retrieved resource.
+
+**Restrictions:**
+* The `epid` parameter must be present and matching an endpoint profile ID.
+* The `url` parameter must be present and accessible.
+
+**Example response:** GET `/access?epid=ZC4HNjxdHxoHoabV&url=example.com`: 200 (decoded)
+```html
+<main><h1>Example Domain</h1><p>This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission.</p><p><a href="https://www.iana.org/domains/example">More information...</a></p></main>
+```
+
 ### URL query parameters
 Below are the query parameters which can be supplied when calling certain routes.
 
@@ -74,9 +97,31 @@ The endpoint profile ID to use when encrypting a decryptable response.
 
 **Type:** String
 
+#### `url`
+A URL of a resource from the internet to retrieve the contents of.
+
+**Type:** String (in URL format)
+
+#### `cache`
+Whether to retrieve resources from a node's cache if it exists.
+
+**Type:** Boolean (either `true` or `false`)
+
+### Error handling
+If unexpected behaviour is encountered, ThunderNet nodes should return errors if the request cannot be completed. The errors should be returned in a JSON format, and with a suitable HTTP status code, as shown below.
+
+| Situation                                          | HTTP status code | JSON response                        |
+|----------------------------------------------------|------------------|--------------------------------------|
+| Route does not exist                               | 404              | `{"error": "nonexistentRoute"}`      |
+| Originating resource server communications failure | 504              | `{"error": "communicationsFailure"}` |
+| Request quota exceeded for endpoint                | 429              | `{"error": "quotaExceeded"}`         |
+| Resource is too large to send                      | 413              | `{"error": "resourceTooLarge"}`      |
+
 ## Footnotes
 [F1] See #0001 for definition.
 
 [F2] It is convenient to perform decryption on the endpoint using this method since it is widely implemented through SubtleCrypto: https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/decrypt
 
 [F3] https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt#aes-ctr
+
+[F4] https://github.com/LZMA-JS/LZMA-JS
