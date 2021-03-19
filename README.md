@@ -1,4 +1,4 @@
-# DeviceFuture Specicifications Documents
+# DeviceFuture Specifications Documents
 The home of DeviceFuture's project specifications documents.
 
 ## Writing and submitting specifications documents
