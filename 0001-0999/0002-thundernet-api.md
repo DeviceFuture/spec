@@ -101,7 +101,7 @@ The rationale behind this route is so that endpoints can test an internally-cach
 * The `url` parameter must be present and accessible.
 
 **Example response:** GET `/version?url=http%3A%2F%2Fexample.com%2F`: 200
-```html
+```json
 {
     "hash": "e8963dbe6fe9aa4a576f2af3fd69d976b8491b938050f0dbd703d4e5d7739d0e",
     "firstRetrieved": 1609998684000,
