@@ -106,31 +106,33 @@ See **Figure 4** for a complete example of the aforementioned styling options.
 ```
 
 ### Restricted elements
-Certain elements are restricted or not allowed so that only the core functionality of HTML is used. Below is a list of elements which are restricted.
+Certain elements are restricted or not allowed so that only the core functionality of HTML is used. Below is a list of elements which are restricted. Elements that are not supported in HTML5 are unavailable[F2].
 
-| Tag          | Restriction                                                                                 |
-|--------------|---------------------------------------------------------------------------------------------|
-| `<applet>`   | Embedded content is not supported.                                                          |
-| `<audio>`    | Content not loaded on ThunderNet, but instead through the internet. Cannot be autoplayed.   |
-| `<button>`   | JavaScript is not supported. Use `<a button>` instead since it is better for accessibility. |
-| `<canvas>`   | JavaScript is not supported.                                                                |
-| `<dialog>`   | Popups and dialogs are not allowed for anti-distraction purposes.                           |
-| `<embed>`    | Embedded content is not supported.                                                          |
-| `<form>`     | JavaScript is not supported. Web forms are not supported at this time.                      |
-| `<iframe>`   | Iframes are not allowed for anti-tracking purposes.                                         |
-| `<input>`    | JavaScript is not supported. Web forms are not supported at this time.                      |
-| `<meter>`    | JavaScript is not supported.                                                                |
-| `<noscript>` | JavaScript is not supported, but `<noscript>` tags are hidden.                              |
-| `<object>`   | Embedded content is not supported.                                                          |
-| `<optgroup>` | JavaScript is not supported. Web forms are not supported at this time.                      |
-| `<option>`   | JavaScript is not supported. Web forms are not supported at this time.                      |
-| `<param>`    | Embedded content is not supported.                                                          |
-| `<progress>` | JavaScript is not supported.                                                                |
-| `<script>`   | JavaScript is not supported.                                                                |
-| `<select>`   | JavaScript is not supported. Web forms are not supported at this time.                      |
-| `<style>`    | CSS is not supported.                                                                       |
-| `<textarea>` | JavaScript is not supported. Web forms are not supported at this time.                      |
-| `<video>`    | Content not loaded on ThunderNet, but instead through the internet. Cannot be autoplayed.   |
+| Tag          | Status      | Restriction                                                                                    |
+|--------------|-------------|------------------------------------------------------------------------------------------------|
+| `<audio>`    | Restricted  | Content not loaded on ThunderNet, but instead through the internet. Cannot be autoplayed.      |
+| `<button>`   | Unavailable | JavaScript is not supported. Use `<a button>` instead since it is better for accessibility.    |
+| `<canvas>`   | Unavailable | JavaScript is not supported.                                                                   |
+| `<dialog>`   | Unavailable | Popups and dialogs are not allowed for anti-distraction purposes.                              |
+| `<embed>`    | Unavailable | Embedded content is not supported.                                                             |
+| `<form>`     | Unavailable | JavaScript is not supported. Web forms are not supported at this time.                         |
+| `<iframe>`   | Unavailable | Iframes are not allowed for anti-tracking purposes.                                            |
+| `<img>`      | Restricted  | Images will not load by default unless disabled. User must explicitly choose to view an image. |
+| `<input>`    | Unavailable | JavaScript is not supported. Web forms are not supported at this time.                         |
+| `<meter>`    | Unavailable | JavaScript is not supported.                                                                   |
+| `<noscript>` | Unavailable | JavaScript is not supported, but `<noscript>` tags are hidden.                                 |
+| `<object>`   | Unavailable | Embedded content is not supported.                                                             |
+| `<optgroup>` | Unavailable | JavaScript is not supported. Web forms are not supported at this time.                         |
+| `<option>`   | Unavailable | JavaScript is not supported. Web forms are not supported at this time.                         |
+| `<param>`    | Unavailable | Embedded content is not supported.                                                             |
+| `<progress>` | Unavailable | JavaScript is not supported.                                                                   |
+| `<script>`   | Unavailable | JavaScript is not supported.                                                                   |
+| `<select>`   | Unavailable | JavaScript is not supported. Web forms are not supported at this time.                         |
+| `<style>`    | Unavailable | CSS is not supported.                                                                          |
+| `<textarea>` | Unavailable | JavaScript is not supported. Web forms are not supported at this time.                         |
+| `<video>`    | Restricted  | Content not loaded on ThunderNet, but instead through the internet. Cannot be autoplayed.      |
 
 ## Footnotes
 [F1] See https://html.spec.whatwg.org/ for the full HTML standard.
+
+[F2] See https://www.w3schools.com/tags/default.asp for a list of all HTML tags, including tags that are unavailable in HTML5.
