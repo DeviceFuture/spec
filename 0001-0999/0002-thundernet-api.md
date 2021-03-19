@@ -11,7 +11,7 @@
 | Review discussion | [Link to review discussion[G4]] |
 
 ## Synopsis
-To ensure a standardised communication between ThunderNet nodes[F1] and their endpoints[F1], this document defines a specification of the various API routes that will be set out to ensure maximum compatibility between various projects using the ThunderNet network.
+To ensure standardised communications between ThunderNet nodes[F1] and their endpoints[F1], this document defines a specification of the various API routes that will be set out to ensure maximum compatibility between various projects using the ThunderNet network.
 
 ## Details
 To ensure privacy though encryption, endpoints must communicate with a node using an **endpoint profile** unique to both the node and the endpoint. An **endpoint profile** is an object which contains a referential **endpoint profile ID** and AES encryption/decryption key for secure and unique communications between a node and an endpoint. It is a JSON object containing an **endpoint profile ID** (key `id`), a JSON Web Key (JWK; key `jwk`) and an array of a node's WAN IP address(es) and/or domain name(s) which are commonly known as host addresses (key `hosts`). This is an array since multiple nodes could share the same endpoint profile collection.
@@ -24,11 +24,11 @@ For the purposes of secure and convenient encryption and decryption[F2], we will
 Below is a list of node API routes which will be callable from endpoints to communicate with the ThunderNet network.
 
 #### GET `/about`
-Gets various up-to-date information the target ThunderNet node. The response should be a JSON object containing the version string (without a `v` prefix; key `version`) and numeric API level value (key `apiLevel`), which starts at 0 and is incremented for every API change.
+Gets various up-to-date information about the target ThunderNet node. The response should be a JSON object containing the version string (without a `v` prefix; key `version`) and numeric API level value (key `apiLevel`), which starts at 0 and is incremented for every API change.
 
 So that endpoints can determine whether the node is in operation, the JSON response should include a status (key `status`), which can be any of these values:
 * **`"active"`:** Node is available for general use.
-* **`"tempoff"`:** Node is temporarily not in use and may need maintenance (to be carried out by node's operator) due to a reached limit. The `until` key containing a UNIX epoch millisecond timestamp will be provided as a date for when the node should be active again.
+* **`"tempoff"`:** Node is temporarily not in use and may need maintenance (to be carried out by the node's operator) due to a reached limit. The `until` key containing a UNIX epoch millisecond timestamp will be provided as a date for when the node should be active again.
 * **`"error"`:** Node is experiencing high error rates (possibly due to issues with connecting to the internet). This may be cleared automatically.
 * **`"off"`:** Node is not in use at this time. This may be cleared at the discretion of the node's operator.
 * **`"decommissioned"`:** Node is no longer in use. Endpoints should not communicate with this node again.
@@ -41,7 +41,8 @@ So that endpoints can determine whether the node is in operation, the JSON respo
 ```json
 {
     "version": "1.2.3",
-    "apiLevel": 12
+    "apiLevel": 12,
+    "status": "active"
 }
 ```
 
@@ -70,7 +71,7 @@ Creates a new endpoint profile for usage with encryption on the node, and return
 ```
 
 #### GET `/access`
-Retrieves a rendered resource based on an internet resource located at a given URL (URL query parameter `url`). The internet resource may be modified (such as through compression or content stripping) before it is sent. The resource may also have been cached by the node, unless the `cache` URL query parameter is explicitly set to `false`.
+Retrieves a ThunderNet resource based on an internet resource located at a given URL (URL query parameter `url`). The internet resource may be modified (such as through compression or content stripping) before it is sent. The resource may also have been cached by the node, unless the `cache` URL query parameter is explicitly set to `false`.
 
 The response given is compressed (though the LZMA encryption/decryption algorithm[F4]) and then encrypted using the chosen endpoint profile configuration. The endpoint should decrypt and then decompress the response in that order to interpret the resource.
 
