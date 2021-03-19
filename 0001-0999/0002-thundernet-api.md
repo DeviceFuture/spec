@@ -85,9 +85,28 @@ Any erroneous HTTP status codes sent from the originating resource server should
 * The `epid` parameter must be present and matching an endpoint profile ID.
 * The `url` parameter must be present and accessible.
 
-**Example response:** GET `/access?epid=ZC4HNjxdHxoHoabV&url=example.com`: 200 (decoded)
+**Example response:** GET `/access?epid=ZC4HNjxdHxoHoabV&url=http%3A%2F%2Fexample.com%2F`: 200 (decoded)
 ```html
 <main><h1>Example Domain</h1><p>This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission.</p><p><a href="https://www.iana.org/domains/example">More information...</a></p></main>
+```
+
+#### GET `/version`
+Retrieves the version information about a ThunderNet resource based on an internet resource located at a given URL (URL query parameter `url`). The response should be a JSON object containing a hex-encoded SHA-256 hash of the resource (key `hash`), a UNIX epoch millisecond timestamp of when the resource was first retrieved (key `firstRetrieved`) and another timestamp of when the resource was last updated (key `lastUpdated`).
+
+The rationale behind this route is so that endpoints can test an internally-cached resource to see whether it reflects the current state of the resource (which may also be retrieved from the node's frequently-updated cache) so that resources can remain fresh and have an unlikelihood of becoming stale.
+
+**Response type:** JSON
+
+**Restrictions:**
+* The `url` parameter must be present and accessible.
+
+**Example response:** GET `/version?url=http%3A%2F%2Fexample.com%2F`: 200
+```html
+{
+    "hash": "e8963dbe6fe9aa4a576f2af3fd69d976b8491b938050f0dbd703d4e5d7739d0e",
+    "firstRetrieved": 1609998684000,
+    "lastUpdated": 1616179264000
+}
 ```
 
 ### URL query parameters
@@ -101,6 +120,8 @@ The endpoint profile ID to use when encrypting a decryptable response.
 #### `url`
 A URL of a resource from the internet to retrieve the contents of.
 
+> **Recommendation:** The URL should be encoded so that it can be safely decoded as a URI component. This can be achieved through using `encodeURIComponent`[F5] in JavaScript.
+
 **Type:** String (in URL format)
 
 #### `cache`
@@ -111,12 +132,13 @@ Whether to retrieve resources from a node's cache if it exists.
 ### Error handling
 If unexpected behaviour is encountered, ThunderNet nodes should return errors if the request cannot be completed. The errors should be returned in a JSON format, and with a suitable HTTP status code, as shown below.
 
-| Situation                                          | HTTP status code | JSON response                        |
-|----------------------------------------------------|------------------|--------------------------------------|
-| Route does not exist                               | 404              | `{"error": "nonexistentRoute"}`      |
-| Originating resource server communications failure | 504              | `{"error": "communicationsFailure"}` |
-| Request quota exceeded for endpoint                | 429              | `{"error": "quotaExceeded"}`         |
-| Resource is too large to send                      | 413              | `{"error": "resourceTooLarge"}`      |
+| Situation                                          | HTTP status code | JSON response                         |
+|----------------------------------------------------|------------------|---------------------------------------|
+| Route does not exist                               | 404              | `{"error": "nonexistentRoute"}`       |
+| Originating resource server communications failure | 504              | `{"error": "communicationsFailure"}`  |
+| Request quota exceeded for endpoint                | 429              | `{"error": "quotaExceeded"}`          |
+| Resource is too large to send                      | 413              | `{"error": "resourceTooLarge"}`       |
+| Unsatisfied restriction                            | 400              | `{"error": "unsatisfiedRestriction"}` |
 
 ## Footnotes
 [F1] See #0001 for definition.
@@ -126,3 +148,5 @@ If unexpected behaviour is encountered, ThunderNet nodes should return errors if
 [F3] https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt#aes-ctr
 
 [F4] https://github.com/LZMA-JS/LZMA-JS
+
+[F5] https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent
