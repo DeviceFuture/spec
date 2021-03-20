@@ -23,6 +23,18 @@ For the purposes of secure and convenient encryption and decryption[F2], we will
 ### Routes
 Below is a list of node API routes which will be callable from endpoints to communicate with the ThunderNet network.
 
+#### GET `/`
+Has no specific behaviour. It is recommended that the node redirects the visitor to `https://devicefuture.org` to raise awareness about DeviceFuture and ThunderNet.
+
+**Response type:** (Any)
+
+**Restrictions:** (Unrestricted)
+
+**Example response:** GET `/`: 301
+```
+https://devicefuture.org
+```
+
 #### GET `/about`
 Gets various up-to-date information about the target ThunderNet node. The response should be a JSON object containing the version string (without a `v` prefix; key `version`) and numeric API level value (key `apiLevel`), which starts at 0 and is incremented for every API change.
 
@@ -33,6 +45,8 @@ So that endpoints can determine whether the node is in operation, the JSON respo
 * **`"off"`:** Node is not in use at this time. This may be cleared at the discretion of the node's operator.
 * **`"decommissioned"`:** Node is no longer in use. Endpoints should not communicate with this node again.
 
+The JSON response may include an optional informative string (key `info`) which contains human-readable information about a node.
+
 **Response type:** JSON
 
 **Restrictions:** (Unrestricted)
@@ -42,7 +56,8 @@ So that endpoints can determine whether the node is in operation, the JSON respo
 {
     "version": "1.2.3",
     "apiLevel": 12,
-    "status": "active"
+    "status": "active",
+    "info": "Read more about this node to learn how I operate it: https://example.com"
 }
 ```
 
@@ -134,6 +149,7 @@ If unexpected behaviour is encountered, ThunderNet nodes should return errors if
 
 | Situation                                          | HTTP status code | JSON response                         |
 |----------------------------------------------------|------------------|---------------------------------------|
+| Node is unavailable for general use                | 503              | `{"error": "statusNotActive"}`        |
 | Route does not exist                               | 404              | `{"error": "nonexistentRoute"}`       |
 | Originating resource server communications failure | 504              | `{"error": "communicationsFailure"}`  |
 | Request quota exceeded for endpoint                | 429              | `{"error": "quotaExceeded"}`          |
