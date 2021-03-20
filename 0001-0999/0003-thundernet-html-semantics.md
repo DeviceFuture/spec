@@ -86,7 +86,7 @@ A prominent feature of many post-based sites is the use of a home page to allow 
 Since opportunities for styling are limited due to the absence of CSS, `<meta>` tags will be used instead:
 * To choose a main accent colour for a site (which affects the `<nav>` element, and may also affect link/button colours if `tn:accent2` is absent), use meta name `tn:accent1` and set content to be a valid CSS colour. A matching foreground colour (either black or white) will be picked to ensure a high contrast ratio.
 * To choose a secondary accent colour for a site (which affects the colour of `<a>` and `<a button>` elements), use meta name `tn:accent2` and set content to be a valid CSS colour.
-* To choose a background colour for the `<aside>` and `<footer>` elements, use meta name `tn:accent3` and set contnet to be a valid CSS colour. A matching foreground colour (either black or white) will be picked to ensure a high contrast ratio.
+* To choose a background colour for the `<aside>` and `<footer>` elements, use meta name `tn:accent3` and set content to be a valid CSS colour. A matching foreground colour (either black or white) will be picked to ensure a high contrast ratio.
 * To choose a corner radius value for container elements (such as `<aside>` elements, in addition to `<a button>` elements), use meta name `tn:radius` and set content to be an integer that matches a pixel value.
 * To make `<a button>` elements have fully rounded corners, use meta name `tn:rounded` and set content to be `true`.
 * To set the font family of the site, use meta name `tn:font` and set content to be a valid CSS font stack.
@@ -119,6 +119,7 @@ Certain elements are restricted or not allowed so that only the core functionali
 | `<iframe>`   | Unavailable | Iframes are not allowed for anti-tracking purposes.                                            |
 | `<img>`      | Restricted  | Images will not load by default unless disabled. User must explicitly choose to view an image. |
 | `<input>`    | Unavailable | JavaScript is not supported. Web forms are not supported at this time.                         |
+| `<link>`     | Restricted  | Only `rel="icon"` is supported at this time.                                                   |
 | `<meter>`    | Unavailable | JavaScript is not supported.                                                                   |
 | `<noscript>` | Unavailable | JavaScript is not supported, but `<noscript>` tags are hidden.                                 |
 | `<object>`   | Unavailable | Embedded content is not supported.                                                             |
@@ -132,7 +133,21 @@ Certain elements are restricted or not allowed so that only the core functionali
 | `<textarea>` | Unavailable | JavaScript is not supported. Web forms are not supported at this time.                         |
 | `<video>`    | Restricted  | Content not loaded on ThunderNet, but instead through the internet. Cannot be autoplayed.      |
 
+### Extra page detail inference
+Certain `<meta>` tags may be interpreted to show extra metadata or detail about a specific page. This information may be presented to the visitor of a site if it is not already included within the main content of the web page.
+
+| Meta name                | Usage                                                |
+|--------------------------|------------------------------------------------------|
+| `author`                 | Display name of article author                       |
+| `og:email`               | Contact email address for site                       |
+| `og:phone_number`        | International phone number for site                  |
+| `og:locality`            | Town or city where article has originated from       |
+| `og:region`              | Province or region where article has originated from |
+| `article:published_time` | Time of publication (in ISO 8601 format[F3])         |
+
 ## Footnotes
 [F1] See https://html.spec.whatwg.org/ for the full HTML standard.
 
 [F2] See https://www.w3schools.com/tags/default.asp for a list of all HTML tags, including tags that are unavailable in HTML5.
+
+[F3] See https://www.iso.org/iso-8601-date-and-time-format.html for more information about the ISO time standard.
