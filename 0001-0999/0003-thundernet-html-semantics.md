@@ -1,14 +1,14 @@
 # 0000: ThunderNet HTML Semantics
 | Property | Value |
 |----------|-------|
-| Status | Awaiting review |
+| Status | Accepted |
 | Product(s) (if any) or area | ThunderNet; ThunderNet Browser |
 | Author(s) | james@devicefuture.org |
 | Reviewer(s) (if any) | (N/A) |
 | Submission date | 2021-03-19 |
-| Acceptance date | [YYYY-MM-DD[G1]] |
+| Acceptance date | 2021-03-20 |
 | Addresses issue(s) (if any) | (N/A) |
-| Review discussion | [Link to review discussion[G4]] |
+| Review discussion | [GH#3](https://github.com/DeviceFuture/spec/pull/3) |
 
 ## Synopsis
 This document standardises the formatting of HTML content sent through the ThunderNet network to ensure efficient data transmission.
