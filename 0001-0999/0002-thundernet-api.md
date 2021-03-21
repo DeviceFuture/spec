@@ -108,7 +108,7 @@ Since the counter must be sent alongside the encrypted resource data, the counte
 ```
 
 #### GET `/version`
-Retrieves the version information about a ThunderNet resource based on an internet resource located at a given URL (URL query parameter `url`). The response should be a JSON object containing a hex-encoded SHA-256 hash of the resource (key `hash`), a UNIX epoch millisecond timestamp of when the resource was first retrieved (key `firstRetrieved`) and another timestamp of when the resource was last updated (key `lastUpdated`).
+Retrieves the version information about a ThunderNet resource based on an internet resource located at a given URL (URL query parameter `url`). The response should be a JSON object containing a hex-encoded SHA-256 hash of the resource (key `hash`) and a UNIX epoch millisecond timestamp of when the resource was last updated (key `lastUpdated`).
 
 The rationale behind this route is so that endpoints can test an internally-cached resource to see whether it reflects the current state of the resource (which may also be retrieved from the node's frequently-updated cache) so that resources can remain fresh and have an unlikelihood of becoming stale.
 
@@ -121,7 +121,6 @@ The rationale behind this route is so that endpoints can test an internally-cach
 ```json
 {
     "hash": "e8963dbe6fe9aa4a576f2af3fd69d976b8491b938050f0dbd703d4e5d7739d0e",
-    "firstRetrieved": 1609998684000,
     "lastUpdated": 1616179264000
 }
 ```
