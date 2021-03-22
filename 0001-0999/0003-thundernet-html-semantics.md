@@ -71,7 +71,7 @@ A prominent feature of many post-based sites is the use of a home page to allow 
     <a article href="/articles/uk-budget-plan">
         <h2>The UK's Budget Plan, Explained</h2>
         <img src="/media/uk-budget-plan.png" alt="Graphic of money on a table">
-        <p>We've unpicked the complete plan for the Uk Government's budgeting.</p>
+        <p>We've unpicked the complete plan for the UK Government's budgeting.</p>
     </a>
     <h1>Have Your Say</h1>
     <a article href="/articles/your-questions-answered">
