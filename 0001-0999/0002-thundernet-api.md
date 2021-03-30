@@ -88,7 +88,7 @@ Creates a new endpoint profile for usage with encryption on the node, and return
 #### GET `/access`
 Retrieves a ThunderNet resource based on an internet resource located at a given URL (URL query parameter `url`). The internet resource may be modified (such as through compression or content stripping) before it is sent. The resource may also have been cached by the node, unless the `cache` URL query parameter is explicitly set to `false`.
 
-The response given is compressed (though the LZMA encryption/decryption algorithm[F4]) and then encrypted using the chosen endpoint profile configuration. The endpoint should decrypt and then decompress the response in that order to interpret the resource.
+The response given is compressed (though the LZMA compression/decompression algorithm[F4]) and then encrypted using the chosen endpoint profile configuration. The endpoint should decrypt and then decompress the response in that order to interpret the resource.
 
 The retrieved resource may then be reused for caching and indexing purposes.
 
